@@ -1,0 +1,402 @@
+<html lang="en">
+  <head>
+    <meta charst="UTF-8" />
+    <title>A2-G6T11-9879912,9880896,(Brayden,Zi Yang)</title>
+  </head>
+
+  <body>
+    <h2><u>Part 1</u></h2>
+    <table style="border: 1px solid black" width="50%">
+      <tr>
+        <th
+          colspan="3"
+          style="
+            width: 65%;
+            border: 1px solid black;
+            background-color: #deeaf6;
+            text-align: center;
+            vertical-align: middle;">
+          <h4 style="margin: 9px 0">CSIT28: Assignment 2</h4>
+        </th>
+
+        <th style="
+            width: 35%;
+            border: 1px solid black;
+            background-color: #deeaf6;
+            text-align: center;
+            vertical-align: middle;">
+          <h4 style="margin: 9px 0">Group G6T11</h4>
+        </th>
+      </tr>
+
+      <tr>
+        <td
+          width="40"
+          rowspan="3"
+          style="
+            text-align: center;
+            vertical-align: middle;
+            border: 1px solid black;
+            padding: 16px;">
+          Student Number / Name / Email
+        </td>
+
+        <td
+          width="20"
+          style="
+            border: 1px solid black;
+            padding: 5px 0px 5px 3px;
+            text-align: center;">
+            9879912
+        </td>
+        <td
+          width="40"
+          style="
+            border: 1px solid black;
+            padding: 5px 10px 5px 3px;
+            text-align: center;">
+          Brayden Scott Chen
+        </td>
+        <td
+          width="40"
+          style="
+            border: 1px solid black;
+            padding: 5px 0px 5px 3px;
+            text-align: center;">
+          bsc034@uowmail.edu.au
+        </td>
+      </tr>
+
+      <tr>
+        <td
+          width="20"
+          style="
+            border: 1px solid black;
+            padding: 5px 0px 5px 3px;
+            text-align: center;">
+          9880896
+        </td>
+        <td
+          width="40"
+          style="
+            border: 1px solid black;
+            padding: 5px 10px 5px 3px;
+            text-align: center;">
+          Tan Zi Yang
+        </td>
+        <td
+          width="40"
+          style="
+            border: 1px solid black;
+            padding: 5px 0px 5px 3px;
+            text-align: center;">
+          zyt818@uowmail.edu.au
+        </td>
+      </tr>
+
+      <tr>
+        <td
+          width="20"
+          style="
+            border: 1px solid black;
+            padding: 5px 0px 5px 3px;
+            text-align: center;">
+          -
+        </td>
+        <td
+          width="40"
+          style="
+            border: 1px solid black;
+            padding: 5px 10px 5px 3px;
+            text-align: center;">
+          -
+        </td>
+        <td
+          width="40"
+          style="
+            border: 1px solid black;
+            padding: 5px 0px 5px 3px;
+            text-align: center;">
+          -
+        </td>
+      </tr>
+    </table>
+
+    <h2><u>Part 2</u></h2>
+
+    <table
+      id="gametable"
+      style="
+        border: 1px solid black;
+        font-size: 16px;
+        color: black;
+        background-color: #f7caac;
+        width: 550px;
+        border-collapse: collapse;
+        padding: 7px;">
+      <tr>
+        <td
+          colspan="4"
+          style="
+            font-size: 25px;
+            border: 1px solid black;
+            border-collapse: collapse;
+            text-align: center;
+            width: 900px;
+            padding: 10px;">
+          <b>Part 2: Game </b>
+        </td>
+      </tr>
+
+      <tr>
+        <td
+          colspan="3"
+          style="
+            font-size: 16px;
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding-top: 5px;
+            padding-bottom: 10px;">
+          <b>Name:</b>
+          <input
+            type="text"
+            id="playername"
+            style="width: 170px; height: 30px; padding-right: 10px"
+            oninput="enable()"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td
+          style="
+            font-size: 16px;
+            font-weight: bold;
+            border: 1px solid black;
+            border-collapse: collapse;
+            width: 300px;
+            background-color: #deeaf6;
+          "
+        >
+          Your chosen character:
+        </td>
+        <td
+          style="
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            border: 1px solid black;
+            border-collapse: collapse;
+            width: 300px;
+            background-color: #deeaf6;
+          "
+        >
+          <select id="chosencharacter" disabled>
+            <option value="B">B</option>
+            <option value="F">F</option>
+            <option value="$">$</option>
+            <option value="%">%</option>
+            <option value="3">3</option>
+            <option value="9">9</option>
+          </select>
+        </td>
+        <td
+          style="
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            width: 300px;
+            padding: 14 17 14 0;
+            background-color: #fff2cc;
+          "
+        >
+          Current Score: <span id="currentscore">0</span>
+        </td>
+      </tr>
+
+      <tr>
+        <td
+          colspan="3"
+          style="
+            text-align: center;
+            border: 1px solid;
+            border-collapse: collapse;
+          "
+        >
+          <div
+            style="display: flex; justify-content: space-evenly; padding: 10px"
+          >
+            <button id="startgame" disabled onclick="startGame()">
+              Start Game
+            </button>
+            <button id="stopgame" disabled onclick="stopGame()">
+              Stop Game
+            </button>
+          </div>
+        </td>
+      </tr>
+
+      <tr style="text-align: center; font-size: 24px; font-weight: bold">
+        <td
+          id="character1"
+          style="
+            width: 60px;
+            height: 60px;
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 15px;
+          "
+          onclick="characterClicked(this)"
+        >
+          1
+        </td>
+        <td
+          id="character2"
+          style="
+            width: 60px;
+            height: 60px;
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 15px;
+          "
+          onclick="characterClicked(this)"
+        >
+          2
+        </td>
+        <td
+          id="character3"
+          style="
+            width: 60px;
+            height: 60px;
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 15px;
+          "
+          onclick="characterClicked(this)"
+        >
+          3
+        </td>
+      </tr>
+
+      <tr>
+        <td
+          colspan="3"
+          style="text-align: left; color: red; font-size: 24px; padding: 10px"
+          id="highestscore"
+        >
+          Highest: 0 None
+        </td>
+      </tr>
+    </table>
+    <script>
+      const playerNameInput = document.getElementById("playername");
+      const chosenCharSelect = document.getElementById("chosencharacter");
+      const startButton = document.getElementById("startgame");
+      const stopButton = document.getElementById("stopgame");
+      const currentScoreSpan = document.getElementById("currentscore");
+      const highestScoreElement = document.getElementById("highestscore");
+      const characterCells = [
+        document.getElementById("character1"),
+        document.getElementById("character2"),
+        document.getElementById("character3"),
+      ];
+      const possibleCharacters = ["B", "F", "$", "%", "3", "9"];
+
+      let cScore = 0; /* Current score be 0*/
+      let hScore = 0; /*current highest score be 0*/
+      let winner = "";
+      let gameRunning = false;
+      let hScorer = false;
+      let gameInterval;
+
+      function enable() {
+        const hasName = playerNameInput.value.trim() !== "";
+        const disableControls = !hasName || gameRunning;
+        chosenCharSelect.disabled = disableControls;
+        startButton.disabled = disableControls;
+        stopButton.disabled = true;
+      }
+
+      function resetGameDisplay() {
+        cScore = 0;
+        currentScoreSpan.textContent = "0";
+        characterCells.forEach((td) => (td.textContent = ""));
+        chosenCharSelect.disabled = false;
+        startButton.disabled = false;
+        stopButton.disabled = true;
+        gameRunning = false;
+      }
+
+      function generateCharacters() {
+        let selectedCharacters = [];
+        while (selectedCharacters.length < 3) {
+          const randomCharacter =
+            possibleCharacters[
+              Math.floor(Math.random() * possibleCharacters.length)
+            ];
+          if (!selectedCharacters.includes(randomCharacter)) {
+            selectedCharacters.push(randomCharacter);
+          }
+        }
+        return selectedCharacters;
+      }
+
+      function characterClicked(choice) {
+        if (!gameRunning) return;
+
+        const chosencharacter = chosenCharSelect.value;
+        if (choice.textContent === chosencharacter) {
+          cScore += 4;
+        } else {
+          cScore -= 3;
+        }
+        currentScoreSpan.textContent = cScore;
+        currentScoreSpan.style.color = "red";
+      }
+
+      function updateCharacterDisplay(chars) {
+        for (let index = 0; index < chars.length; index++) {
+          const character = chars[index];
+          const cell = characterCells[index];
+          cell.textContent = character;
+        }
+      }
+      
+      function startGame() {
+        if (gameRunning) return;
+
+        chosenCharSelect.disabled = true;
+        cScore = 0;
+        currentScoreSpan.textContent = "0";
+        gameRunning = true;
+        startButton.disabled = true;
+        stopButton.disabled = false;
+
+        let newCharacters = generateCharacters();
+        updateCharacterDisplay(newCharacters);
+
+        gameInterval = setInterval(() => {
+          newCharacters = generateCharacters();
+          updateCharacterDisplay(newCharacters);
+        }, 2000);
+      }
+
+      function stopGame() {
+        if (!gameRunning) return;
+        gameRunning = false;
+        clearInterval(gameInterval);
+        startButton.disabled = false;
+        stopButton.disabled = true;
+        chosenCharSelect.disabled = false;
+
+        if (cScore > hScore) {
+          hScore = cScore;
+          hScorer = playerNameInput.value.trim();
+          highestScoreElement.textContent = `Highest: ${hScore} ${hScorer}`;
+        }
+      }
+
+      resetGameDisplay();
+      enable();
+    </script>
+  </body>
+</html>
