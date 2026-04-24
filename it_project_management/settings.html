@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Settings - UOW Room Booking System</title>
+        <link rel="stylesheet" href="./loggedin.css">
+        <style>
+            .settings-page {
+                padding: 36px 48px;
+                max-width: 700px;
+            }
+
+            .settings-title {
+                display: flex;
+                align-items: center;
+                gap: 14px;
+                font-size: 2rem;
+                font-weight: 800;
+                color: #0b0b45;
+                margin-bottom: 32px;
+            }
+
+            .settings-list {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .settings-row {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 20px 24px;
+                border: 1.5px solid #ccc;
+                border-radius: 999px;
+                cursor: pointer;
+                transition: background 0.15s;
+                background: #fff;
+            }
+
+            .settings-row:hover { background: #f4f4f8; }
+
+            .settings-row-left {
+                display: flex;
+                align-items: center;
+                gap: 16px;
+                font-size: 1.3rem;
+                font-weight: 500;
+                color: #111;
+            }
+
+            .settings-row-left svg {
+                flex-shrink: 0;
+                color: #111;
+            }
+
+            .settings-chevron {
+                color: #aaa;
+                font-size: 1.2rem;
+            }
+
+            /* Theme sub-panel (hidden by default) */
+            .theme-panel {
+                display: none;
+                padding: 20px 24px;
+                border: 1.5px solid #ccc;
+                border-radius: 20px;
+                background: #fafafa;
+                margin-top: -8px;
+            }
+
+            .theme-panel.open { display: block; }
+
+            .theme-option {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 12px 0;
+                font-size: 1.1rem;
+                color: #111;
+                border-bottom: 1px solid #eee;
+            }
+
+            .theme-option:last-child { border-bottom: none; }
+
+            /* Toggle switch */
+            .toggle-switch {
+                position: relative;
+                width: 52px;
+                height: 28px;
+                flex-shrink: 0;
+            }
+
+            .toggle-switch input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+
+            .toggle-slider {
+                position: absolute;
+                inset: 0;
+                background: #ccc;
+                border-radius: 999px;
+                cursor: pointer;
+                transition: background 0.2s;
+            }
+
+            .toggle-slider::before {
+                content: '';
+                position: absolute;
+                width: 22px;
+                height: 22px;
+                left: 3px;
+                top: 3px;
+                background: #fff;
+                border-radius: 50%;
+                transition: transform 0.2s;
+            }
+
+            .toggle-switch input:checked + .toggle-slider {
+                background: #0b0b45;
+            }
+
+            .toggle-switch input:checked + .toggle-slider::before {
+                transform: translateX(24px);
+            }
+
+            /* Dark mode styles — applied when body has class "dark-mode" */
+            body.dark-mode {
+                background: #121212;
+                color: #e0e0e0;
+            }
+
+            body.dark-mode .site-header {
+                background: #1a1a2e;
+                border-color: #333;
+            }
+
+            body.dark-mode .site-title { color: #e0e0e0; }
+            body.dark-mode .header-divider { border-color: #333; }
+            body.dark-mode .nav-bar { background: #1a1a2e; border-color: #333; }
+
+            body.dark-mode .settings-title { color: #a0a8d0; }
+
+            body.dark-mode .settings-row {
+                background: #1e1e2e;
+                border-color: #333;
+                color: #e0e0e0;
+            }
+
+            body.dark-mode .settings-row:hover { background: #2a2a3e; }
+            body.dark-mode .settings-row-left { color: #e0e0e0; }
+            body.dark-mode .settings-row-left svg { color: #e0e0e0; }
+
+            body.dark-mode .theme-panel {
+                background: #1a1a2e;
+                border-color: #333;
+            }
+
+            body.dark-mode .theme-option {
+                color: #e0e0e0;
+                border-color: #333;
+            }
+
+            body.dark-mode .nav-panel {
+                background: #1a1a2e;
+            }
+
+            body.dark-mode .panel-item {
+                color: #e0e0e0;
+                border-color: #333;
+            }
+
+            body.dark-mode .panel-item:hover { background: #2a2a3e; }
+
+            body.dark-mode .nav-hamburger span { background: #e0e0e0; }
+        </style>
+    </head>
+    <body>
+
+        <div class="menu-overlay" id="menuOverlay"></div>
+        <div class="nav-panel" id="navPanel">
+            <button class="nav-hamburger panel-close" id="panelClose" aria-label="Close menu">
+                <span></span><span></span><span></span>
+            </button>
+            <nav class="panel-nav">
+                <a href="./profile.html" class="panel-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Profile
+                </a>
+                <a href="./history.html" class="panel-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4"/></svg>History
+                </a>
+                <a href="./settings.html" class="panel-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Setting
+                </a>
+                <a href="./qa.html" class="panel-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Q & A
+                </a>
+                <a href="./contact.html" class="panel-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Contact Us
+                </a>
+                <a href="./feedback.html" class="panel-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Feedback
+                </a>
+            </nav>
+        </div>
+
+        <header class="site-header">
+            <a href="./staff-dashboard.html" class="site-logo-link">
+                <img src="./assets/uowlogo.svg" alt="University of Wollongong Logo" width="48" height="48"></a>
+                <span class="site-title">UOW</span>
+            <div class="header-icons">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#0b0b45" stroke-width="1.8" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#0b0b45" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#0b0b45" stroke-width="1.8" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            </div>
+        </header>
+        <div class="header-divider"></div>
+        <nav class="nav-bar">
+            <button class="nav-hamburger" id="menuHamburger" aria-label="Open menu">
+                <span></span><span></span><span></span>
+            </button>
+        </nav>
+
+        <main>
+            <div class="settings-page">
+
+                <div class="settings-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                    Setting
+                </div>
+
+                <div class="settings-list">
+                    <div class="settings-row" id="themeRow">
+                        <div class="settings-row-left">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                            Theme
+                        </div>
+                        <span class="settings-chevron">›</span>
+                    </div>
+
+                    <div class="theme-panel" id="themePanel">
+                        <div class="theme-option">
+                            <span>Dark Mode</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="darkModeToggle">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="settings-row">
+                        <div class="settings-row-left">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M5 8l6 6"/><path d="M4 14l6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="M22 22l-5-10-5 10"/><path d="M14 18h6"/></svg>
+                            Language
+                        </div>
+                        <span class="settings-chevron">›</span>
+                    </div>
+
+                    <div class="settings-row">
+                        <div class="settings-row-left">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="4" r="1"/><path d="M9 9h6"/><path d="M12 9v5"/><path d="M9 21l3-7 3 7"/></svg>
+                            Accessibility
+                        </div>
+                        <span class="settings-chevron">›</span>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+
+        <script src="./base.js"></script>
+        <script>
+            const isDark = sessionStorage.getItem('uow_darkmode') === 'true';
+            if (isDark) document.documentElement.classList.add('dark-mode');
+            document.getElementById('darkModeToggle').checked = isDark;
+
+            document.getElementById('themeRow').addEventListener('click', () => {
+                document.getElementById('themePanel').classList.toggle('open');
+            });
+
+            document.getElementById('darkModeToggle').addEventListener('change', function () {
+                if (this.checked) {
+                    document.documentElement.classList.add('dark-mode');
+                    sessionStorage.setItem('uow_darkmode', 'true');
+                } else {
+                    document.documentElement.classList.remove('dark-mode');
+                    sessionStorage.setItem('uow_darkmode', 'false');
+                }
+            });
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login - UOW Room Booking System</title>
+        <link rel="stylesheet" href="./base.css">
+        <style>
+            /*login page*/
+            .login-hero {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 30px;
+                padding: 60px 50px;
+                text-align: center;
+                min-height: 75vh;
+            }
+
+            .login-title {
+                font-size: clamp(1.8em, 4vw, 3em);
+                font-weight: 700;
+                color: #0b0b45;
+                letter-spacing: 0.03em;
+            }
+
+            .login-options {
+                display: flex;
+                gap: 40px;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .login-card {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+                cursor: pointer;
+                transition: transform 0.2s, box-shadow 0.2s; /* hover effects */
+            }
+
+            .login-card-img{
+                width: 200px;
+                height: 200px;
+                object-fit: cover;
+                border-radius: 16px;
+                transition: transform 0.2s, box-shadow 0.2s; /* hover effects */
+                border: 5px solid #000000; /* thin black border */
+            }
+
+            .login-card:hover .login-card-img {
+                transform: translateY(-4px);
+                box-shadow: 0 10px 32px rgba(11,11, 69, 0.2);
+            }
+
+            .login-card-label {
+                font-size: 1em;
+                font-weight: 600;
+                color: #0b0b45;
+                letter-spacing: 0.1em;
+            }
+
+        </style>
+    </head>
+    <body>
+        <header class="site-header">
+            <img src="./assets/uowlogo.svg" alt="University of Wollongong Logo" width="48" height="48">
+            <span class="site-title">UOW</span>
+        </header>
+
+        <div class="header-divider"></div>
+        <nav class="nav-bar">
+            <button class="nav-hamburger" aria-label="Open menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+        
+        <main>
+            <div class="login-hero">
+                <h1 class="login-title">Log in as</h1>
+
+                <div class="login-options">
+                    <a href="./staff-login.html">
+                    <div class="login-card">
+                    <img src="./assets/staffimage.png" alt="Staff Login" class="login-card-img" loading="lazy">
+                    <span class="login-card-label">STAFF</span>
+                </div>
+                    </a>
+                    
+                    <div class="login-card">
+                        <img src="./assets/studentimage.png" alt="Student Login" class="login-card-img" loading="lazy">
+                        <span class="login-card-label">STUDENT</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        
+
+    </body>
+</html>

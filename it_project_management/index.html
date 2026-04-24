@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UOW Room Booking System</title>
+    <link rel="stylesheet" href="./base.css">
+    <style>
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            list-style: none;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 16px 16px;
+            background: none;
+            border: none;
+            font-size: 0.9em;
+            font-weight: 650;
+            letter-spacing: 0.055em;
+            color: #0b0b45;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .nav-item:hover {
+            background-color: #f0f0f0;
+            color: #4a4a9a;
+        }
+
+        .nav-arrow {
+            flex-shrink: 0;
+            color: currentColor
+        }
+
+        .hero{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 75vh;
+            gap: 16px;
+            text-align: center;
+            padding: 45px 25px;
+        }
+
+        .hero-title{
+            font-size: clamp(2.5em, 5vw, 4rem);
+            font-weight: 750;
+            letter-spacing: 0.03em;
+            color: #0b0b45;
+            line-height: 0.1;
+            width: 90%;
+        }
+
+        .hero-subtitle{
+            font-size: clamp(1.25em, 3vw, 1.5rem);
+            font-weight: 400;
+            letter-spacing: 0.04em;
+            color: #555;
+        }
+        
+        .btn-login {
+            margin-top: 12px;
+            padding: 27px 60px;
+            background-color: #0b0b45;
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            border: none;
+            border-radius: 999999px; /* super rounded */
+            cursor: pointer; /* hand cursor on hover */
+            transition: background-color 0.2, transforms 0.15s; 
+        }
+
+        .btn-login:hover {
+            background-color: #4a4a9a;
+            transform: translateY(-2px);
+        }
+
+        .btn-login:active {
+            transform: translateY(0);
+        }
+
+        /* Footer styles */
+        .site-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 0px 0px;
+            display: flex;
+            background-color: #ffffff;
+            border-top: 1px solid #e0e0e0;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-links {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            list-style: none;
+        }
+
+        .footer-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 16px 16px;
+            background: none;
+            border: none;
+            font-size: 0.9em;
+            font-weight: 650;
+            letter-spacing: 0.055em;
+            color: #0b0b45;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .footer-item:hover {
+            background-color: #f0f0f0;
+            color: #4a4a9a;
+        }
+
+        .footer-logo {
+            height: 70px;
+            width: auto;
+            display:block;
+            max-width: 200px;
+            object-fit: contain;
+        }
+
+    </style>
+</head>
+
+<body>
+    <header class = "site-header">
+        <img src="./assets/uowlogo.svg"
+        alt = "University of Wollongong Logo"
+        width="48"
+        height="48"
+        >
+        <span class="site-title">UOW</span>
+    </header>
+
+    <div class="header-divider"></div>
+    
+    <nav class="nav-bar">
+        <button class="nav-hamburger" aria-label="Open menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <ul class="nav-links" role="list">
+            <li>
+                <button class="nav-item">ABOUT UOW
+                    <svg class="nav-arrow" width="12" height="12" viewBox="0 0 12 8" fill="none" aria-hidden="true">
+                        <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg> <!--basically draws arrow-->
+                </button>
+            </li>
+            <li>
+                <button class="nav-item">STUDY AT UOW
+                    <svg class="nav-arrow" width="12" height="12" viewBox="0 0 12 8" fill="none" aria-hidden="true">
+                        <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg> <!--basically draws arrow again-->
+                </button>
+            </li>
+            <li>
+                <button class="nav-item">ABOUT SYSTEM
+                    <svg class="nav-arrow" width="12" height="12" viewBox="0 0 12 8" fill="none" aria-hidden="true">
+                        <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg> <!--basically draws arrow again-->
+                </button>
+            </li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="hero">
+            <h1 class="hero-title">UOW Room Booking System</h1> <!--hugeeee in the middle of page thingy-->
+            <p class="hero-subtitle">Staff & Students Portal</p> <!--smaller text under the big thingy-->
+            <a href="./login.html">
+                <button class="btn-login">Log In</button>
+            </a>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <ul class="footer-links" role="list">
+            <li>
+                <button class="footer-item">
+                    SERVICE & SUPPORT &ensp;&ensp;+
+                </button>
+            </li>
+            <li>
+                <button class="footer-item">
+                    CONTACT US&ensp;&ensp;+
+                </button>
+            </li>
+        </ul>
+
+        <img src="./assets/uowlogo_cropped.png"
+            alt="University of Wollongong Logo - Footer"
+            height="40"
+            loading="lazy"
+            class="footer-logo"
+        >
+    </footer>
+
+    </body>
+</html>

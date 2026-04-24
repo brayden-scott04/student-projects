@@ -1,0 +1,64 @@
+/*stylesheet for the header section of the website */
+.site-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 32px;
+            background-color: #ffffff; 
+        }
+
+        .site-header img {
+            height: 80px;
+            width: auto;
+            display: block;
+        }
+
+        .site-header .site-title{
+            font-size: 1.6em;
+            font-weight: 750;
+            letter-spacing: 0.04em;
+            color: #0b0b45;
+            line-height: 1;
+        }
+
+        .header-divider {
+            height: 3px;
+            background-color: #0b0b45;
+            width: 100%;
+        }
+
+.nav-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0 32px;
+            background-color: #ffffff;
+            position: relative;
+        }
+
+.nav-hamburger {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 4px;
+            padding: 12px 14px;
+            background: none;
+            border: none;
+            margin-right: 7px;
+            cursor: pointer;
+        }
+
+.nav-hamburger span {
+            display: block;
+            width: 20px;
+            height: 1.5px;
+            background-color: #0b0b45;
+            border-radius: 2px;
+            transition: background 0.2s;
+        }
+
+.nav-hamburger:hover span {
+            background-color: #4a4a9a;
+        }
+
+

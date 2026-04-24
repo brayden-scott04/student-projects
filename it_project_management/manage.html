@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Manage Room - UOW Room Booking System</title>
+        <link rel="stylesheet" href="./loggedin.css">
+        <style>
+            .manage-page {
+                display: flex;
+                gap: 0;
+                min-height: calc(100vh - 120px);
+            }
+
+            .filter-sidebar {
+                width: 220px;
+                flex-shrink: 0;
+                padding: 28px 24px;
+                border-right: 1px solid #e0e0e0;
+            }
+
+            .filter-title {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                font-size: 1.2rem;
+                font-weight: 700;
+                color: #111;
+                margin-bottom: 24px;
+            }
+
+            .filter-section {
+                margin-bottom: 24px;
+            }
+
+            .filter-section h3 {
+                font-size: 1rem;
+                font-weight: 800;
+                color: #111;
+                margin-bottom: 12px;
+            }
+
+            .filter-option {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-bottom: 10px;
+                font-size: 0.95rem;
+                color: #111;
+                cursor: pointer;
+            }
+
+            .filter-option input[type="checkbox"] {
+                width: 20px;
+                height: 20px;
+                accent-color: #0b0b45;
+                cursor: pointer;
+                flex-shrink: 0;
+            }
+
+            .manage-content {
+                flex: 1;
+                padding: 28px 36px;
+            }
+
+            .manage-content h1 {
+                font-size: 2rem;
+                font-weight: 800;
+                color: #0b0b45;
+                margin-bottom: 28px;
+            }
+
+            .room-list {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .manage-card {
+                display: flex;
+                align-items: center;
+                border: 1px solid #ccc;
+                border-radius: 6px;
+                padding: 16px 20px;
+                gap: 20px;
+            }
+
+            .manage-card-photo {
+                width: 120px;
+                height: 100px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                flex-shrink: 0;
+                overflow: hidden;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: #fafafa;
+            }
+
+            .manage-card-photo img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .manage-card-info {
+                flex: 1;
+            }
+
+            .manage-card-info h2 {
+                font-size: 1.4rem;
+                font-weight: 800;
+                color: #0b0b45;
+                margin-bottom: 4px;
+            }
+
+            .manage-card-actions {
+                margin-top: 12px;
+            }
+
+            .card-btn {
+                padding: 12px 28px;
+                background-color: #0b0b45;
+                color: #fff;
+                font-size: 0.95rem;
+                font-weight: 800;
+                letter-spacing: 0.08em;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: background-color 0.2s, transform 0.15s;
+            }
+
+            .card-btn:hover {
+                background-color: #1a1a7a;
+                transform: translateY(-1px);
+            }
+
+            .empty-manage {
+                color: #aaa;
+                font-size: 1rem;
+                margin-top: 40px;
+            }
+
+            .menu-overlay {
+                display: none; position: fixed; inset: 0;
+                background-color: rgba(0,0,0,0.4);
+                z-index: 98; opacity: 0; transition: opacity 0.3s ease;
+            }
+            .nav-panel {
+                position: fixed; top: 0; left: 0;
+                width: 280px; height: 100vh;
+                background-color: #ffffff; z-index: 99;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+                display: flex; flex-direction: column;
+                padding-top: 12px;
+                box-shadow: 4px 0 20px rgba(0,0,0,0.1);
+            }
+            .nav-panel.open { transform: translateX(0); }
+            .panel-close { margin: 8px 0 16px 16px; align-self: flex-start; }
+            .panel-nav { display: flex; flex-direction: column; }
+            .panel-item {
+                display: flex; align-items: center; gap: 16px;
+                padding: 18px 24px; font-size: 1rem; font-weight: 500;
+                color: #0b0b45; text-decoration: none;
+                border-bottom: 1px solid #ececec;
+                transition: background-color 0.15s;
+            }
+            .panel-item:hover { background-color: #f4f4f8; }
+            .panel-item svg { flex-shrink: 0; color: #0b0b45; }
+        </style>
+    </head>
+    <body>
+
+        <div class="menu-overlay" id="menuOverlay"></div>
+        <div class="nav-panel" id="navPanel">
+            <button class="nav-hamburger panel-close" id="panelClose" aria-label="Close menu">
+                <span></span><span></span><span></span>
+            </button>
+            <nav class="panel-nav">
+                <a href="./profile.html" class="panel-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Profile
+                </a>
+                <a href="./history.html" class="panel-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4"/></svg>History
+                </a>
+                <a href="./settings.html" class="panel-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Setting
+                </a>
+                <a href="./qa.html" class="panel-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Q & A
+                </a>
+                <a href="./contact.html" class="panel-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Contact Us
+                </a>
+                <a href="./feedback.html" class="panel-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Feedback
+                </a>
+            </nav>
+        </div>
+
+        <header class="site-header">
+            <a href="./staff-dashboard.html" class="site-logo-link">
+                <img src="./assets/uowlogo.svg" alt="University of Wollongong Logo" width="48" height="48"></a>
+                <span class="site-title">UOW</span>
+            <div class="header-icons">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#0b0b45" stroke-width="1.8" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#0b0b45" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#0b0b45" stroke-width="1.8" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            </div>
+        </header>
+        <div class="header-divider"></div>
+        <nav class="nav-bar">
+            <button class="nav-hamburger" id="menuHamburger" aria-label="Open menu">
+                <span></span><span></span><span></span>
+            </button>
+        </nav>
+
+        <div class="manage-page">
+
+            <aside class="filter-sidebar">
+                <div class="filter-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+                    Filter
+                </div>
+
+                <div class="filter-section filter-section--capacity">
+                    <h3>Capacity</h3>
+                    <label class="filter-option"><input type="checkbox" value="10"> 10 pax</label>
+                    <label class="filter-option"><input type="checkbox" value="20"> 20 pax</label>
+                    <label class="filter-option"><input type="checkbox" value="50"> 50 pax</label>
+                    <label class="filter-option"><input type="checkbox" value="100"> 100 pax</label>
+                </div>
+
+                <div class="filter-section filter-section--type">
+                    <h3>Room Type</h3>
+                    <label class="filter-option"><input type="checkbox" value="Study Room"> study room</label>
+                    <label class="filter-option"><input type="checkbox" value="Discussion Room"> discussion room</label>
+                    <label class="filter-option"><input type="checkbox" value="Multipurpose Hall"> multipurpose hall</label>
+                    <label class="filter-option"><input type="checkbox" value="Theatre"> theatres</label>
+                </div>
+            </aside>
+
+            <div class="manage-content">
+                <h1>Manage Room</h1>
+                <div class="room-list" id="roomList"></div>
+            </div>
+        </div>
+
+        <script src="./base.js"></script>
+        <script>
+                if (sessionStorage.getItem('uow_darkmode') === 'true') {
+            document.documentElement.classList.add('dark-mode');
+            }
+            const rooms = JSON.parse(localStorage.getItem('uow_rooms') || '[]');
+
+            function renderRooms(filtered) {
+                const list = document.getElementById('roomList');
+                if (filtered.length === 0) {
+                    list.innerHTML = `<p class="empty-manage">No rooms found.</p>`;
+                    return;
+                }
+
+                list.innerHTML = filtered.map(room => {
+                    const photoHTML = room.photo
+                        ? `<img src="${room.photo}" alt="Room photo">`
+                        : `<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="none" stroke="#aaa" stroke-width="1.2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`;
+
+                    return `
+                        <div class="manage-card">
+                            <div class="manage-card-photo">${photoHTML}</div>
+                            <div class="manage-card-info">
+                                <h2>${room.roomType}</h2>
+                                <div class="manage-card-actions">
+                                    <button class="card-btn" onclick="window.location.href='./edit.html?id=${room.id}'">DETAIL</button>
+                                </div>
+                            </div>
+                        </div>`;
+                }).join('');
+            }
+
+            // show all
+            renderRooms(rooms);
+
+            // Filter 
+            document.querySelectorAll('.filter-option input').forEach(cb => {
+                cb.addEventListener('change', () => {
+                    const checkedCapacity = [...document.querySelectorAll('.filter-section--capacity input:checked')].map(i => i.value);
+                    const checkedTypes    = [...document.querySelectorAll('.filter-section--type input:checked')].map(i => i.value.toLowerCase());
+
+                    const filtered = rooms.filter(room => {
+                        const capMatch  = checkedCapacity.length === 0 || checkedCapacity.includes(String(room.capacity));
+                        const typeMatch = checkedTypes.length === 0    || checkedTypes.includes(room.roomType.toLowerCase());
+                        return capMatch && typeMatch;
+                    });
+
+                    renderRooms(filtered);
+                });
+            });
+        </script>
+    </body>
+</html>
