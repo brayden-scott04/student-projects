@@ -82,9 +82,10 @@ A settings page with Theme, Language, and Accessibility options styled as pill-s
 ## Notes
 
 - This project was completed as an academic assignment and is included here as a code and design sample.
-- All data is stored client-side — there is no server, database, or authentication backend.
+- All data is stored client-side, there is no server, database, or authentication backend.
 - Dark mode persistence relies on `sessionStorage` rather than `localStorage` due to sandboxed iframe restrictions in some hosting environments.
-- The "Booked by" field on the Schedule page is a placeholder — user account linking is not implemented in this version.
+- The "Booked by" field on the Schedule page is a placeholder, user account linking is not implemented in this version.
+- Some buttons and functions are not functional, which was intentional, as the main purpose was to showcase the booking and history as per Hi-Fi prototypes done up per the assignment.
 
 ## Improvement Areas
 
