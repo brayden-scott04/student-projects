@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Booking Confirmation - UOW Room Booking System</title>
+        <link rel="stylesheet" href="./loggedin.css">
+        <script>
+            if (sessionStorage.getItem('uow_darkmode') === 'true') {
+                document.documentElement.classList.add('dark-mode');
+            }
+        </script>
+        <style>
+            .confirm-page {
+                padding: 40px 48px;
+                max-width: 680px;
+            }
+
+            .back-btn {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                background: none;
+                border: none;
+                font-size: 1rem;
+                color: #333;
+                cursor: pointer;
+                margin-bottom: 28px;
+                padding: 0;
+            }
+            .back-btn:hover { color: #0b0b45; }
+
+            .confirm-title {
+                font-size: 1.35rem;
+                font-weight: 800;
+                color: #111;
+                margin-bottom: 24px;
+            }
+
+            .confirm-detail {
+                font-size: 0.97rem;
+                color: #111;
+                margin-bottom: 14px;
+                line-height: 1.6;
+            }
+
+            .confirm-actions {
+                display: flex;
+                justify-content: flex-end;
+                gap: 12px;
+                margin-top: 36px;
+            }
+
+            .btn-edit, .btn-pay {
+                background: #0b0b45;
+                color: #fff;
+                border: none;
+                border-radius: 8px;
+                padding: 13px 32px;
+                font-size: 0.97rem;
+                font-weight: 700;
+                letter-spacing: 0.06em;
+                cursor: pointer;
+                transition: background 0.15s;
+            }
+            .btn-edit:hover, .btn-pay:hover { background: #1a1a6e; }
+
+            /* Dark mode */
+            .dark-mode .back-btn { color: #aaa; }
+            .dark-mode .back-btn:hover { color: #e0e0e0; }
+            .dark-mode .confirm-title,
+            .dark-mode .confirm-detail { color: #e0e0e0; }
+        </style>
+    </head>
+    <body>
+
+        <div class="menu-overlay" id="menuOverlay"></div>
+        <div class="nav-panel" id="navPanel">
+            <button class="nav-hamburger panel-close" id="panelClose" aria-label="Close menu">
+                <span></span><span></span><span></span>
+            </button>
+            <nav class="panel-nav">
+                <a href="./profile.html" class="panel-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Profile
+                </a>
+                <a href="./student-history.html" class="panel-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4"/></svg>History
+                </a>
+                <a href="./settings.html" class="panel-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Setting
+                </a>
+                <a href="./qa.html" class="panel-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Q &amp; A
+                </a>
+                <a href="./contact.html" class="panel-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Contact Us
+                </a>
+                <a href="./feedback.html" class="panel-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Feedback
+                </a>
+            </nav>
+        </div>
+
+        <header class="site-header">
+            <a href="./student-dashboard.html" class="site-logo-link">
+                <img src="./assets/uowlogo.svg" alt="University of Wollongong Logo" width="48" height="48">
+                <span class="site-title"></span>
+            </a>
+            <div class="header-icons">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#0b0b45" stroke-width="1.8" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#0b0b45" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#0b0b45" stroke-width="1.8" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            </div>
+        </header>
+        <div class="header-divider"></div>
+        <nav class="nav-bar">
+            <button class="nav-hamburger" id="menuHamburger" aria-label="Open menu">
+                <span></span><span></span><span></span>
+            </button>
+        </nav>
+
+        <main>
+            <div class="confirm-page">
+
+                <button class="back-btn" onclick="history.back()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+                </button>
+
+                <h1 class="confirm-title">Please check the following details:</h1>
+
+                <div id="confirmDetails">
+                    <p style="color:#999">Loading...</p>
+                </div>
+
+                <div class="confirm-actions">
+                    <button class="btn-edit" id="editBtn">EDIT</button>
+                    <button class="btn-pay"  id="payBtn">MAKE PAYMENT</button>
+                </div>
+
+            </div>
+        </main>
+
+        <script src="./base.js"></script>
+        <script>
+            const pending = JSON.parse(localStorage.getItem('uow_pending_booking') || 'null');
+            const user    = JSON.parse(localStorage.getItem('uow_logged_in_user')  || 'null');
+
+            if (!pending) {
+                document.getElementById('confirmDetails').innerHTML =
+                    '<p style="color:red">No booking found. Please go back and try again.</p>';
+            } else {
+                renderDetails(pending, user);
+            }
+
+            function formatDate(dateStr) {
+                const d    = new Date(dateStr + 'T00:00:00');
+                const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+                return `${d.getDate()}-${d.getMonth()+1}-${d.getFullYear()} (${days[d.getDay()]})`;
+            }
+
+            function formatSlots(slots) {
+                if (!slots || slots.length === 0) return '—';
+                const pairs = slots.map(s => s.split('-').map(Number));
+                const start = Math.min(...pairs.map(p => p[0]));
+                const end   = Math.max(...pairs.map(p => p[1]));
+                const ampm  = end > 12 ? 'pm' : 'am';
+                return `${start}00 H - ${end}00 H`;
+            }
+
+            function renderDetails(b, u) {
+                const title = u && u.title    ? u.title + ' ' : 'Mr ';
+                const name  = u && u.fullName ? u.fullName
+                            : u && u.name     ? u.name : 'Lee Dong Min';
+                const sid   = u && u.studentId ? u.studentId
+                            : u && u.id        ? u.id : '1997330';
+                const email = u && u.email    ? u.email : 'dongminlee@uowmail.edu.auu';
+
+                document.getElementById('confirmDetails').innerHTML = `
+                    <p class="confirm-detail">Student name: ${title}${name}</p>
+                    <p class="confirm-detail">Student ID: ${sid}</p>
+                    <p class="confirm-detail">Email: ${email}</p>
+                    <p class="confirm-detail">Room booking: ${b.roomType || '—'}</p>
+                    <p class="confirm-detail">Booking date and time: ${formatDate(b.date)}, ${formatSlots(b.slots)}</p>
+                `;
+            }
+
+            document.getElementById('editBtn').addEventListener('click', () => {
+                history.back();
+            });
+
+            document.getElementById('payBtn').addEventListener('click', () => {
+                if (!pending) return;
+                const bookings = JSON.parse(localStorage.getItem('uow_student_bookings') || '[]');
+                bookings.push({ ...pending, status: 'pending_payment' });
+                localStorage.setItem('uow_student_bookings', JSON.stringify(bookings));
+                window.location.href = './payment.html';
+            });
+        </script>
+    </body>
+</html>

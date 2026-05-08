@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Book a Room - UOW Room Booking System</title>
+        <link rel="stylesheet" href="./loggedin.css">
+        <script>
+            if (sessionStorage.getItem('uow_darkmode') === 'true') {
+                document.documentElement.classList.add('dark-mode');
+            }
+        </script>
+        <style>
+            .book-page {
+                display: flex;
+                gap: 0;
+                min-height: calc(100vh - 120px);
+            }
+
+            /* ── Filter Sidebar ── */
+            .filter-sidebar {
+                width: 160px;
+                flex-shrink: 0;
+                padding: 20px 16px;
+                border-right: 1px solid #ddd;
+            }
+
+            .filter-header {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 1.2rem;
+                font-weight: 700;
+                color: #111;
+                margin-bottom: 18px;
+            }
+
+            .filter-section {
+                margin-bottom: 18px;
+            }
+
+            .filter-section h3 {
+                font-size: 0.85rem;
+                font-weight: 800;
+                color: #111;
+                margin-bottom: 8px;
+                text-transform: none;
+            }
+
+            .filter-option {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 0.85rem;
+                color: #333;
+                margin-bottom: 6px;
+                cursor: pointer;
+            }
+
+            .filter-option input[type="checkbox"] {
+                width: 16px;
+                height: 16px;
+                accent-color: #0b0b45;
+                cursor: pointer;
+            }
+
+            /* ── Room List ── */
+            .book-content {
+                flex: 1;
+                padding: 24px 32px;
+            }
+
+            .book-title {
+                font-size: 1.7rem;
+                font-weight: 800;
+                color: #111;
+                margin-bottom: 4px;
+            }
+
+            .book-subtitle {
+                font-size: 0.9rem;
+                color: #666;
+                margin-bottom: 16px;
+            }
+
+            .book-divider {
+                border: none;
+                border-top: 1px solid #ccc;
+                margin-bottom: 20px;
+            }
+
+            /* ── Room Cards ── */
+            .room-cards {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .room-card {
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                border: 1.5px solid #ccc;
+                border-radius: 8px;
+                padding: 16px;
+                background: #fff;
+                max-width: 520px;
+            }
+
+            .room-card-photo {
+                width: 110px;
+                height: 90px;
+                flex-shrink: 0;
+                border: 1.5px solid #bbb;
+                border-radius: 6px;
+                overflow: hidden;
+                background: #f0f0f0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .room-card-photo img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            /* Placeholder icon when no photo */
+            .room-card-photo svg {
+                color: #bbb;
+            }
+
+            .room-card-info {
+                flex: 1;
+            }
+
+            .room-card-name {
+                font-size: 1.2rem;
+                font-weight: 800;
+                color: #111;
+                margin-bottom: 12px;
+            }
+
+            .room-card-btn {
+                background: #0b0b45;
+                color: #fff;
+                border: none;
+                border-radius: 6px;
+                padding: 8px 24px;
+                font-size: 0.9rem;
+                font-weight: 700;
+                cursor: pointer;
+                letter-spacing: 0.05em;
+                transition: background 0.15s;
+            }
+
+            .room-card-btn:hover { background: #1a1a6e; }
+
+            /* Empty state */
+            .no-rooms {
+                color: #999;
+                font-size: 0.95rem;
+                margin-top: 40px;
+            }
+
+            /* Dark mode */
+            .dark-mode .filter-sidebar { border-color: #333; }
+            .dark-mode .filter-header { color: #e0e0e0; }
+            .dark-mode .filter-section h3 { color: #e0e0e0; }
+            .dark-mode .filter-option { color: #ccc; }
+            .dark-mode .book-title { color: #e0e0e0; }
+            .dark-mode .book-subtitle { color: #888; }
+            .dark-mode .book-divider { border-color: #444; }
+            .dark-mode .room-card { background: #1e1e2e; border-color: #333; }
+            .dark-mode .room-card-photo { background: #2a2a3e; border-color: #444; }
+            .dark-mode .room-card-name { color: #e0e0e0; }
+        </style>
+    </head>
+    <body>
+
+        <div class="menu-overlay" id="menuOverlay"></div>
+        <div class="nav-panel" id="navPanel">
+            <button class="nav-hamburger panel-close" id="panelClose" aria-label="Close menu">
+                <span></span><span></span><span></span>
+            </button>
+            <nav class="panel-nav">
+                <a href="./profile.html" class="panel-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Profile
+                </a>
+                <a href="./student-history.html" class="panel-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4"/></svg>History
+                </a>
+                <a href="./settings.html" class="panel-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Setting
+                </a>
+                <a href="./qa.html" class="panel-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Q & A
+                </a>
+                <a href="./contact.html" class="panel-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Contact Us
+                </a>
+                <a href="./feedback.html" class="panel-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Feedback
+                </a>
+            </nav>
+        </div>
+
+        <header class="site-header">
+            <a href="./student-dashboard.html" class="site-logo-link">
+                <img src="./assets/uowlogo.svg" alt="University of Wollongong Logo" width="48" height="48">
+                <span class="site-title">UOW</span>
+            </a>
+            <div class="header-icons">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#0b0b45" stroke-width="1.8" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#0b0b45" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#0b0b45" stroke-width="1.8" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            </div>
+        </header>
+        <div class="header-divider"></div>
+        <nav class="nav-bar">
+            <button class="nav-hamburger" id="menuHamburger" aria-label="Open menu">
+                <span></span><span></span><span></span>
+            </button>
+        </nav>
+
+        <main>
+            <div class="book-page">
+
+                <!-- Filter Sidebar -->
+                <aside class="filter-sidebar">
+                    <div class="filter-header">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+                        Filter
+                    </div>
+
+                    <div class="filter-section">
+                        <h3>Capacity</h3>
+                        <label class="filter-option"><input type="checkbox" data-filter="capacity" value="1"> 1 pax</label>
+                        <label class="filter-option"><input type="checkbox" data-filter="capacity" value="2"> 2 pax</label>
+                        <label class="filter-option"><input type="checkbox" data-filter="capacity" value="4"> 4 pax</label>
+                        <label class="filter-option"><input type="checkbox" data-filter="capacity" value="6"> 6 pax</label>
+                        <label class="filter-option"><input type="checkbox" data-filter="capacity" value="20"> 20 pax</label>
+                        <label class="filter-option"><input type="checkbox" data-filter="capacity" value="100"> 100 pax</label>
+                    </div>
+
+                    <div class="filter-section">
+                        <h3>Room Type</h3>
+                        <label class="filter-option"><input type="checkbox" data-filter="type" value="study room"> study room</label>
+                        <label class="filter-option"><input type="checkbox" data-filter="type" value="discussion room"> discussion room</label>
+                        <label class="filter-option"><input type="checkbox" data-filter="type" value="multipurpose hall"> multipurpose hall</label>
+                        <label class="filter-option"><input type="checkbox" data-filter="type" value="theatre"> theatre</label>
+                    </div>
+                </aside>
+
+                <!-- Room List -->
+                <div class="book-content">
+                    <h1 class="book-title">Book a Room</h1>
+                    <p class="book-subtitle" id="roomCount">room available: </p>
+                    <hr class="book-divider">
+                    <div class="room-cards" id="roomCards"></div>
+                </div>
+
+            </div>
+        </main>
+
+        <script src="./base.js"></script>
+        <script>
+            // ── Load rooms from localStorage (same key staff create.html uses) ──
+            const ALL_ROOMS = JSON.parse(localStorage.getItem('uow_rooms') || '[]');
+
+            function getActiveFilters(filterAttr) {
+                return [...document.querySelectorAll(`input[data-filter="${filterAttr}"]:checked`)]
+                    .map(cb => cb.value);
+            }
+
+            function renderRooms() {
+                const capFilters  = getActiveFilters('capacity');
+                const typeFilters = getActiveFilters('type');
+
+                const filtered = ALL_ROOMS.filter(room => {
+                    const capMatch  = capFilters.length  === 0 || capFilters.includes(String(room.capacity));
+                    const typeMatch = typeFilters.length === 0 || typeFilters.includes(room.roomType?.toLowerCase());
+                    return capMatch && typeMatch;
+                });
+
+                const container = document.getElementById('roomCards');
+                const countEl   = document.getElementById('roomCount');
+                countEl.textContent = `room available: ${filtered.length}`;
+
+                if (filtered.length === 0) {
+                    container.innerHTML = '<p class="no-rooms">No rooms match your filters.</p>';
+                    return;
+                }
+
+                container.innerHTML = filtered.map(room => `
+                    <div class="room-card">
+                        <div class="room-card-photo">
+                            ${room.photo
+                                ? `<img src="${room.photo}" alt="${room.roomType}">`
+                                : `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`
+                            }
+                        </div>
+                        <div class="room-card-info">
+                            <div class="room-card-name">${room.roomType || 'Room'}</div>
+                            <button class="room-card-btn" onclick="goDetail('${room.id}')">DETAIL</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            function goDetail(id) {
+                window.location.href = `./student-detail.html?id=${id}`;
+            }
+
+            // Attach filter listeners
+            document.querySelectorAll('input[data-filter]').forEach(cb => {
+                cb.addEventListener('change', renderRooms);
+            });
+
+            renderRooms();
+        </script>
+    </body>
+</html>
