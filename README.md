@@ -6,7 +6,7 @@ This repository contains projects completed as part of my coursework and indepen
 
 - `web-dev` — Frontend development projects using HTML, CSS, JavaScript, and XML/XSLT
 - `OOP` — Python projects focused on object-oriented programming concepts
-- `it_project_management` - Frontend development project using HTML, CSS, JavaScript
+- `it_project_management` - Frontend development project using HTML, CSS, JavaScript, Browser Storage
 - More folders and projects will be added over time
 
 ## Topics Covered
