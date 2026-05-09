@@ -60,25 +60,6 @@ A settings page with Theme, Language, and Accessibility options styled as pill-s
 - **Conditional EDIT button** on History — only shown for future or current-day bookings, not past ones
 - **Global dark mode** — toggled from Settings, persisted via `sessionStorage`, and applied instantly on page load via an inline `<head>` script to prevent flash
 
-## Project Structure
-
-```
-/
-├── login.html
-├── staff-dashboard.html
-├── create.html
-├── edit.html
-├── detail.html
-├── history.html
-├── manage.html
-├── schedule.html
-├── settings.html
-├── loggedin.css          ← Shared stylesheet for all logged-in pages
-├── base.js               ← Shared JS for side panel and dark mode init
-└── assets/
-    └── uowlogo.svg
-```
-
 ## Notes
 
 - This project was completed as an academic assignment and is included here as a code and design sample.
