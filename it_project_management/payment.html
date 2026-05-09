@@ -389,7 +389,6 @@
                 const method = document.querySelector('.pay-method.selected')?.dataset.method || 'paynow';
                 const total  = document.getElementById('totalAmount').textContent;
 
-                // Update booking status in history
                 const bookings = JSON.parse(localStorage.getItem('uow_student_bookings') || '[]');
                 if (bookings.length > 0) {
                     bookings[bookings.length - 1].status = 'paid';
@@ -398,6 +397,9 @@
                     localStorage.setItem('uow_student_bookings', JSON.stringify(bookings));
                 }
                 localStorage.removeItem('uow_pending_booking');
+
+                // Save type so confirmation page knows what was booked
+                sessionStorage.setItem('uow_last_booking_type', pending?.type || 'room');
 
                 window.location.href = './payment-confirmed.html';
             });

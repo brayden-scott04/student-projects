@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Booking Confirmed - UOW Room Booking System</title>
+        <title>Book an Equipment - UOW Room Booking System</title>
         <link rel="stylesheet" href="./loggedin.css">
         <script>
             if (sessionStorage.getItem('uow_darkmode') === 'true') {
@@ -11,55 +11,91 @@
             }
         </script>
         <style>
-            .confirmed-page {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                padding: 80px 48px;
-                text-align: center;
+            .equipment-page {
+                padding: 36px 48px;
+                max-width: 900px;
             }
 
-            .success-icon {
-                width: 80px;
-                height: 80px;
-                background: #4caf50;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
+            .page-title {
+                font-size: 1.6rem;
+                font-weight: 800;
+                color: #111;
+                margin-bottom: 4px;
+            }
+
+            .page-subtitle {
+                font-size: 0.92rem;
+                color: #555;
                 margin-bottom: 28px;
             }
 
-            .success-icon svg {
-                width: 44px;
-                height: 44px;
+            .equipment-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+                max-width: 700px;
             }
 
-            .confirmed-msg {
-                font-size: 1.1rem;
-                font-weight: 600;
+            .equipment-card {
+                display: flex;
+                align-items: center;
+                gap: 16px;
+                border: 1.5px solid #ccc;
+                border-radius: 8px;
+                padding: 20px 20px;
+                background: #fff;
+            }
+
+            .equipment-icon {
+                flex-shrink: 0;
+                width: 80px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #0b0b45;
+            }
+
+            .equipment-icon svg {
+                width: 64px;
+                height: 64px;
+            }
+
+            .equipment-info {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .equipment-name {
+                font-size: 1.15rem;
+                font-weight: 800;
                 color: #111;
-                line-height: 1.7;
-                margin-bottom: 32px;
             }
 
-            .finish-btn {
+            .detail-btn {
                 background: #0b0b45;
                 color: #fff;
                 border: none;
-                border-radius: 8px;
-                padding: 13px 48px;
-                font-size: 0.97rem;
+                border-radius: 6px;
+                padding: 9px 22px;
+                font-size: 0.88rem;
                 font-weight: 700;
-                letter-spacing: 0.08em;
+                letter-spacing: 0.06em;
                 cursor: pointer;
                 transition: background 0.15s;
+                width: fit-content;
             }
-            .finish-btn:hover { background: #1a1a6e; }
+            .detail-btn:hover { background: #1a1a6e; }
 
             /* Dark mode */
-            .dark-mode .confirmed-msg { color: #e0e0e0; }
+            .dark-mode .page-title { color: #e0e0e0; }
+            .dark-mode .page-subtitle { color: #aaa; }
+            .dark-mode .equipment-card {
+                background: #1e1e2e;
+                border-color: #444;
+            }
+            .dark-mode .equipment-name { color: #e0e0e0; }
+            .dark-mode .equipment-icon { color: #a0b4ff; }
         </style>
     </head>
     <body>
@@ -110,30 +146,67 @@
         </nav>
 
         <main>
-            <div class="confirmed-page">
+            <div class="equipment-page">
+                <h1 class="page-title">Book an Equipment</h1>
+                <p class="page-subtitle">equipment available:</p>
 
-                <div class="success-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                        <polyline points="20 6 9 17 4 12"/>
-                    </svg>
+                <div class="equipment-grid" id="equipmentGrid">
+                    <!-- Cards rendered by JS -->
                 </div>
-
-                <p class="confirmed-msg" id="confirmedMsg">
-                    Room Booking Success.<br>
-                    Please check your email for more details.
-                </p>
-
-                <button class="finish-btn" onclick="window.location.href='./student-dashboard.html'">FINISH</button>
-
             </div>
         </main>
 
         <script src="./base.js"></script>
         <script>
-            const type = sessionStorage.getItem('uow_last_booking_type');
-            if (type === 'equipment') {
-                document.getElementById('confirmedMsg').innerHTML =
-                    'Equipment Booking Success.<br>Please check your email for more details.';
+            const equipmentList = [
+                {
+                    id: 'keylock',
+                    name: 'Key Lock',
+                    icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <circle cx="8" cy="15" r="5"/>
+                        <path d="M13 15h8M17 15v-3"/>
+                        <circle cx="8" cy="15" r="2" fill="currentColor" stroke="none"/>
+                    </svg>`
+                },
+                {
+                    id: 'moreplug',
+                    name: 'More plug',
+                    icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <path d="M12 2v4M8 3v3M16 3v3"/>
+                        <rect x="7" y="6" width="10" height="6" rx="1"/>
+                        <path d="M12 12v4"/>
+                        <circle cx="12" cy="18" r="2"/>
+                    </svg>`
+                },
+                {
+                    id: 'projector',
+                    name: 'Projector',
+                    icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <rect x="2" y="7" width="20" height="10" rx="2"/>
+                        <circle cx="12" cy="12" r="2"/>
+                        <path d="M6 12h.01M18 12h.01"/>
+                        <path d="M12 17v4M9 21h6"/>
+                    </svg>`
+                }
+            ];
+
+            const grid = document.getElementById('equipmentGrid');
+
+            equipmentList.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'equipment-card';
+                card.innerHTML = `
+                    <div class="equipment-icon">${item.icon}</div>
+                    <div class="equipment-info">
+                        <span class="equipment-name">${item.name}</span>
+                        <button class="detail-btn" onclick="goToDetail('${item.id}')">DETAIL</button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            function goToDetail(id) {
+                window.location.href = `./equipment-detail.html?id=${id}`;
             }
         </script>
     </body>
