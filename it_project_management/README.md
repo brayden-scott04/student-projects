@@ -2,7 +2,7 @@
 
 This project is a front-end web application built for the University of Wollongong (UOW) as part of a web development assignment. It simulates a staff-facing room booking and management system, allowing staff to create, view, edit, and manage room bookings through a multi-page interface.
 
-The system is built entirely with HTML, CSS, and vanilla JavaScript, with no backend or database — all data is persisted using the browser's `sessionStorage` and `localStorage` APIs. The focus is on interface design, component consistency, user flow, and practical implementation of front-end web development concepts.
+The system is built entirely with HTML, CSS, and vanilla JavaScript, with no backend or database. All data is persisted using the browser's `sessionStorage` and `localStorage` APIs. The focus is on interface design, component consistency, user flow, and practical implementation of front-end web development concepts.
 
 ## What This Project Shows
 
@@ -42,7 +42,7 @@ Pre-fills all fields from a selected room booking and allows the user to update 
 ### `detail.html` — Room Detail
 A read-only view of a room booking. All fields are displayed as static text with no editable inputs. Accessed from both History and Manage pages.
 
-### `manage.html` — Manage Rooms
+### `manage.html` - Manage Rooms
 A staff management view showing all rooms with a filter sidebar. Rooms can be filtered by capacity and room type using checkboxes. Each room card links to the Detail page.
 
 ### `schedule.html` — Schedule
