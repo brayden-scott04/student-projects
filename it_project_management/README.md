@@ -24,31 +24,31 @@ The system is built entirely with HTML, CSS, and vanilla JavaScript, with no bac
 
 ## Pages
 
-### `login.html` — Login
+### `login.html` - Login
 Entry point of the application. Authenticates the user before granting access to the dashboard.
 
-### `staff-dashboard.html` — Staff Dashboard
+### `staff-dashboard.html` - Staff Dashboard
 Main hub after login. Provides navigation to all major features: Create Room, History, Manage, and Schedule.
 
-### `create.html` — Create Room
+### `create.html` - Create Room
 A form-based page that allows staff to create a new room booking. Fields include room type, capacity, charging port availability, date, time range, block and room number, price, equipment checkboxes, and a photo upload.
 
-### `history.html` — Booking History
+### `history.html` - Booking History
 Displays all previously created room bookings loaded from `localStorage`. Each card shows room type, date, time, and price. Future bookings show both an **EDIT** and a **DETAIL** button; past bookings show only **DETAIL**.
 
-### `edit.html` — Edit Room
+### `edit.html` - Edit Room
 Pre-fills all fields from a selected room booking and allows the user to update any detail. Accessed by passing the room ID as a URL query parameter (`?id=...`). Saves the updated data back to `localStorage`.
 
-### `detail.html` — Room Detail
+### `detail.html` - Room Detail
 A read-only view of a room booking. All fields are displayed as static text with no editable inputs. Accessed from both History and Manage pages.
 
 ### `manage.html` - Manage Rooms
 A staff management view showing all rooms with a filter sidebar. Rooms can be filtered by capacity and room type using checkboxes. Each room card links to the Detail page.
 
-### `schedule.html` — Schedule
+### `schedule.html` - Schedule
 Displays a navigable monthly calendar. Dates with existing bookings are marked with a dot indicator. Clicking a date shows all rooms booked on that date in a card list, each linking to the Detail page.
 
-### `settings.html` — Settings
+### `settings.html` - Settings
 A settings page with Theme, Language, and Accessibility options styled as pill-shaped rows. The Theme row expands to reveal a Dark Mode toggle that applies a global dark theme across all pages using `sessionStorage`.
 
 ## Key Features
